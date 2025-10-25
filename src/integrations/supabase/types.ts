@@ -14,7 +14,260 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      collection_fonts: {
+        Row: {
+          added_at: string | null
+          collection_id: string
+          font_id: string
+          id: string
+        }
+        Insert: {
+          added_at?: string | null
+          collection_id: string
+          font_id: string
+          id?: string
+        }
+        Update: {
+          added_at?: string | null
+          collection_id?: string
+          font_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collection_fonts_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "collection_fonts_font_id_fkey"
+            columns: ["font_id"]
+            isOneToOne: false
+            referencedRelation: "fonts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      collections: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_public: boolean | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collections_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      favorites: {
+        Row: {
+          created_at: string | null
+          font_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          font_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          font_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_font_id_fkey"
+            columns: ["font_id"]
+            isOneToOne: false
+            referencedRelation: "fonts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fonts: {
+        Row: {
+          category: Database["public"]["Enums"]["font_category"]
+          created_at: string | null
+          description: string | null
+          designer: string | null
+          downloads: number | null
+          favorites_count: number | null
+          file_url: string | null
+          font_weights: string[] | null
+          id: string
+          is_new: boolean | null
+          is_premium: boolean | null
+          license: Database["public"]["Enums"]["font_license"]
+          name: string
+          preview_image_url: string | null
+          preview_text: string | null
+          rating: number | null
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["font_category"]
+          created_at?: string | null
+          description?: string | null
+          designer?: string | null
+          downloads?: number | null
+          favorites_count?: number | null
+          file_url?: string | null
+          font_weights?: string[] | null
+          id?: string
+          is_new?: boolean | null
+          is_premium?: boolean | null
+          license?: Database["public"]["Enums"]["font_license"]
+          name: string
+          preview_image_url?: string | null
+          preview_text?: string | null
+          rating?: number | null
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["font_category"]
+          created_at?: string | null
+          description?: string | null
+          designer?: string | null
+          downloads?: number | null
+          favorites_count?: number | null
+          file_url?: string | null
+          font_weights?: string[] | null
+          id?: string
+          is_new?: boolean | null
+          is_premium?: boolean | null
+          license?: Database["public"]["Enums"]["font_license"]
+          name?: string
+          preview_image_url?: string | null
+          preview_text?: string | null
+          rating?: number | null
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          is_premium: boolean | null
+          subscription_ends_at: string | null
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          is_premium?: boolean | null
+          subscription_ends_at?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          is_premium?: boolean | null
+          subscription_ends_at?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      ratings: {
+        Row: {
+          created_at: string | null
+          font_id: string
+          id: string
+          rating: number | null
+          review: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          font_id: string
+          id?: string
+          rating?: number | null
+          review?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          font_id?: string
+          id?: string
+          rating?: number | null
+          review?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ratings_font_id_fkey"
+            columns: ["font_id"]
+            isOneToOne: false
+            referencedRelation: "fonts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ratings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +276,18 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      font_category:
+        | "serif"
+        | "sans-serif"
+        | "script"
+        | "display"
+        | "monospace"
+        | "handwritten"
+        | "modern"
+        | "vintage"
+        | "rounded"
+        | "gothic"
+      font_license: "free" | "premium" | "commercial" | "personal"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +414,20 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      font_category: [
+        "serif",
+        "sans-serif",
+        "script",
+        "display",
+        "monospace",
+        "handwritten",
+        "modern",
+        "vintage",
+        "rounded",
+        "gothic",
+      ],
+      font_license: ["free", "premium", "commercial", "personal"],
+    },
   },
 } as const
