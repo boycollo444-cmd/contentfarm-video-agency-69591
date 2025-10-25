@@ -3,36 +3,46 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import FontlabsHome from "./pages/FontlabsHome";
 import Navigation from "./components/fontlabs/Navigation";
 import ScrollToTop from "./components/ScrollToTop";
+import Categories from "./pages/Categories";
+import Trending from "./pages/Trending";
+import Collections from "./pages/Collections";
+import Premium from "./pages/Premium";
+import AITools from "./pages/AITools";
+import Profile from "./pages/Profile";
+import FontDetail from "./pages/FontDetail";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<FontlabsHome />} />
-          {/* Placeholder routes - will be built in next iterations */}
-          <Route path="/categories" element={<div className="p-8 text-center">Categories page coming soon</div>} />
-          <Route path="/trending" element={<div className="p-8 text-center">Trending page coming soon</div>} />
-          <Route path="/collections" element={<div className="p-8 text-center">Collections page coming soon</div>} />
-          <Route path="/ai-tools" element={<div className="p-8 text-center">AI Tools page coming soon</div>} />
-          <Route path="/community" element={<div className="p-8 text-center">Community page coming soon</div>} />
-          <Route path="/premium" element={<div className="p-8 text-center">Premium page coming soon</div>} />
-          <Route path="/profile" element={<div className="p-8 text-center">Profile page coming soon</div>} />
-          <Route path="/favorites" element={<div className="p-8 text-center">Favorites page coming soon</div>} />
-          <Route path="/font/:id" element={<div className="p-8 text-center">Font preview page coming soon</div>} />
-          <Route path="*" element={<div className="p-8 text-center">Page not found</div>} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<FontlabsHome />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/categories/:category" element={<Categories />} />
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/collections" element={<Collections />} />
+            <Route path="/ai-tools" element={<AITools />} />
+            <Route path="/premium" element={<Premium />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/font/:id" element={<FontDetail />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="*" element={<div className="p-8 text-center">Page not found</div>} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
