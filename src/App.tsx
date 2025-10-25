@@ -1,26 +1,10 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import AboutUs from "./pages/AboutUs";
-import ProductDemoVideos from "./pages/ProductDemoVideos";
-import CaseStudies from "./pages/CaseStudies";
-import Shorts from "./pages/Shorts";
-import Pricing from "./pages/Pricing";
-import Career from "./pages/Career";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import CookiePolicy from "./pages/CookiePolicy";
-import NotFound from "./pages/NotFound";
-import YouTubeStrategy from "./pages/YouTubeStrategy";
-import YouTubeScriptGenerator from "./pages/YouTubeScriptGenerator";
-import ScriptGenerator from "./pages/ScriptGenerator";
-import BlogPost from "./pages/BlogPost";
-import Blog from "./pages/Blog";
-import VideoProduction from "./pages/VideoProduction";
+import FontlabsHome from "./pages/FontlabsHome";
+import Navigation from "./components/fontlabs/Navigation";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -32,25 +16,20 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <Navigation />
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/product-demo-videos" element={<ProductDemoVideos />} />
-          <Route path="/shorts" element={<Shorts />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/career" element={<Career />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-          <Route path="/cookie-policy" element={<CookiePolicy />} />
-          <Route path="/youtube-strategy" element={<YouTubeStrategy />} />
-        <Route path="/youtube-script-generator" element={<YouTubeScriptGenerator />} />
-        <Route path="/script-generator" element={<ScriptGenerator />} />
-          <Route path="/video-production" element={<VideoProduction />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<FontlabsHome />} />
+          {/* Placeholder routes - will be built in next iterations */}
+          <Route path="/categories" element={<div className="p-8 text-center">Categories page coming soon</div>} />
+          <Route path="/trending" element={<div className="p-8 text-center">Trending page coming soon</div>} />
+          <Route path="/collections" element={<div className="p-8 text-center">Collections page coming soon</div>} />
+          <Route path="/ai-tools" element={<div className="p-8 text-center">AI Tools page coming soon</div>} />
+          <Route path="/community" element={<div className="p-8 text-center">Community page coming soon</div>} />
+          <Route path="/premium" element={<div className="p-8 text-center">Premium page coming soon</div>} />
+          <Route path="/profile" element={<div className="p-8 text-center">Profile page coming soon</div>} />
+          <Route path="/favorites" element={<div className="p-8 text-center">Favorites page coming soon</div>} />
+          <Route path="/font/:id" element={<div className="p-8 text-center">Font preview page coming soon</div>} />
+          <Route path="*" element={<div className="p-8 text-center">Page not found</div>} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
