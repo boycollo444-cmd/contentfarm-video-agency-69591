@@ -19,8 +19,8 @@ export default function PopulateFonts() {
       const fonts = await fetchGoogleFonts('popularity');
       setProgress(`Fetched ${fonts.length} fonts. Inserting into database...`);
       
-      // Take first 500 fonts for better performance
-      const fontsToInsert = fonts.slice(0, 500).map((font, index) => ({
+      // Use all available fonts from Google Fonts API
+      const fontsToInsert = fonts.map((font, index) => ({
         name: font.family,
         slug: font.family.toLowerCase().replace(/\s+/g, '-'),
         category: categorizeFont(font.category) as any,
@@ -34,15 +34,15 @@ export default function PopulateFonts() {
         google_font_family: font.family,
       }));
 
-      // Insert in batches of 100
-      for (let i = 0; i < fontsToInsert.length; i += 100) {
-        const batch = fontsToInsert.slice(i, i + 100);
+      // Insert in batches of 50 for faster processing
+      for (let i = 0; i < fontsToInsert.length; i += 50) {
+        const batch = fontsToInsert.slice(i, i + 50);
         const { error } = await supabase
           .from('fonts')
           .insert(batch);
         
         if (error) throw error;
-        setProgress(`Inserted ${Math.min(i + 100, fontsToInsert.length)} of ${fontsToInsert.length} fonts...`);
+        setProgress(`Inserted ${Math.min(i + 50, fontsToInsert.length)} of ${fontsToInsert.length} fonts...`);
       }
 
       toast({

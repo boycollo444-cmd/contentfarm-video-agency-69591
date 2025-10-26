@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import FontCard from '@/components/fontlabs/FontCard';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { loadGoogleFont } from '@/lib/googleFonts';
 
 export default function Categories() {
   const { category } = useParams();
@@ -37,9 +38,18 @@ export default function Categories() {
       query = query.eq('category', selectedCategory as any);
     }
     
-    const { data, error } = await query.order('downloads', { ascending: false });
+    const { data, error } = await query
+      .order('downloads', { ascending: false })
+      .limit(1000); // Load up to 1000 fonts
     
     if (!error && data) {
+      // Load Google Fonts dynamically
+      data.forEach(font => {
+        const fontFamily = (font as any).google_font_family || font.name;
+        if (fontFamily) {
+          loadGoogleFont(fontFamily);
+        }
+      });
       setFonts(data);
     }
     setLoading(false);

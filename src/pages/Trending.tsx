@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import FontCard from '@/components/fontlabs/FontCard';
 import { Loader2, TrendingUp } from 'lucide-react';
+import { loadGoogleFont } from '@/lib/googleFonts';
 
 export default function Trending() {
   const [fonts, setFonts] = useState<any[]>([]);
@@ -16,9 +17,16 @@ export default function Trending() {
       .from('fonts')
       .select('*')
       .order('downloads', { ascending: false })
-      .limit(50);
+      .limit(1000); // Load up to 1000 trending fonts
     
     if (!error && data) {
+      // Load Google Fonts dynamically
+      data.forEach(font => {
+        const fontFamily = (font as any).google_font_family || font.name;
+        if (fontFamily) {
+          loadGoogleFont(fontFamily);
+        }
+      });
       setFonts(data);
     }
     setLoading(false);
@@ -31,7 +39,7 @@ export default function Trending() {
           <TrendingUp className="h-8 w-8 text-primary" />
           <div>
             <h1 className="text-4xl font-bold text-foreground">Trending Fonts</h1>
-            <p className="text-muted-foreground mt-2">Most popular fonts this week</p>
+            <p className="text-muted-foreground mt-2">Most popular fonts ({fonts.length} total)</p>
           </div>
         </div>
 
