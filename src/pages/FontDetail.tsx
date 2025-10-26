@@ -35,8 +35,9 @@ export default function FontDetail() {
     if (!error && data) {
       setFont(data);
       // Load the Google Font dynamically
-      if (data.google_font_family || data.name) {
-        loadGoogleFont(data.google_font_family || data.name);
+      const fontFamily = (data as any).google_font_family || data.name;
+      if (fontFamily) {
+        loadGoogleFont(fontFamily);
       }
     }
     setLoading(false);
@@ -174,7 +175,7 @@ export default function FontDetail() {
             className="bg-muted/30 rounded-lg p-8 min-h-[200px] flex items-center justify-center text-center break-words"
             style={{ 
               fontSize: `${fontSize[0]}px`, 
-              fontFamily: `'${font.google_font_family || font.name}', sans-serif` 
+              fontFamily: `'${(font as any).google_font_family || font.name}', sans-serif` 
             }}
           >
             {previewText}

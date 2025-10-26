@@ -22,7 +22,8 @@ export default function PopulateFonts() {
       // Take first 500 fonts for better performance
       const fontsToInsert = fonts.slice(0, 500).map((font, index) => ({
         name: font.family,
-        category: categorizeFont(font.category),
+        slug: font.family.toLowerCase().replace(/\s+/g, '-'),
+        category: categorizeFont(font.category) as any,
         designer: 'Google Fonts',
         rating: 4.0 + Math.random(),
         downloads: Math.floor(Math.random() * 50000) + 1000,

@@ -134,6 +134,7 @@ export type Database = {
           favorites_count: number | null
           file_url: string | null
           font_weights: string[] | null
+          google_font_family: string | null
           id: string
           is_new: boolean | null
           is_premium: boolean | null
@@ -154,6 +155,7 @@ export type Database = {
           favorites_count?: number | null
           file_url?: string | null
           font_weights?: string[] | null
+          google_font_family?: string | null
           id?: string
           is_new?: boolean | null
           is_premium?: boolean | null
@@ -174,6 +176,7 @@ export type Database = {
           favorites_count?: number | null
           file_url?: string | null
           font_weights?: string[] | null
+          google_font_family?: string | null
           id?: string
           is_new?: boolean | null
           is_premium?: boolean | null

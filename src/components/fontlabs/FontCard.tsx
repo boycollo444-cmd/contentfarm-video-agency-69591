@@ -49,7 +49,7 @@ export default function FontCard({
         <div className="mb-4 min-h-[80px] flex items-center justify-center">
           <p 
             className="text-3xl text-center text-foreground transition-transform group-hover:scale-105"
-            style={{ fontFamily: name }}
+            style={{ fontFamily: `'${name}', sans-serif` }}
           >
             {previewText}
           </p>
