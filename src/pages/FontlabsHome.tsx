@@ -165,7 +165,6 @@ export default function FontlabsHome() {
             })}
           </div>
 
-          {/* Loading indicator */}
           {loading && (
             <div className="flex justify-center items-center py-8">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -175,6 +174,20 @@ export default function FontlabsHome() {
           {!hasMore && trendingFonts.length > 0 && (
             <div className="text-center py-8 text-muted-foreground">
               All fonts loaded ({trendingFonts.length} total)
+            </div>
+          )}
+
+          {!loading && trendingFonts.length === 0 && (
+            <div className="text-center py-20 bg-card rounded-lg">
+              <p className="text-2xl font-bold text-foreground mb-4">No Fonts Available</p>
+              <p className="text-muted-foreground mb-6">
+                The database is empty. Please populate it with fonts from Google Fonts API.
+              </p>
+              <Link to="/populate">
+                <Button size="lg" className="bg-primary text-primary-foreground">
+                  Populate Database
+                </Button>
+              </Link>
             </div>
           )}
         </div>
@@ -287,6 +300,8 @@ export default function FontlabsHome() {
                 <li><Link to="/categories" className="hover:text-primary transition-colors">Categories</Link></li>
                 <li><Link to="/trending" className="hover:text-primary transition-colors">Trending</Link></li>
                 <li><Link to="/collections" className="hover:text-primary transition-colors">Collections</Link></li>
+                <li><Link to="/community" className="hover:text-primary transition-colors">Community</Link></li>
+                <li><Link to="/favorites" className="hover:text-primary transition-colors">Favorites</Link></li>
               </ul>
             </div>
             
@@ -295,6 +310,8 @@ export default function FontlabsHome() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><Link to="/ai-tools" className="hover:text-primary transition-colors">AI Tools</Link></li>
                 <li><Link to="/premium" className="hover:text-primary transition-colors">Premium</Link></li>
+                <li><Link to="/about" className="hover:text-primary transition-colors">About</Link></li>
+                <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
               </ul>
             </div>
             

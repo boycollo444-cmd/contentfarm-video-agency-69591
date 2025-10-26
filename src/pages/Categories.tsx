@@ -102,9 +102,16 @@ export default function Categories() {
 
         {!loading && fonts.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-muted-foreground text-lg">No fonts found in this category</p>
-            <Link to="/">
-              <Button className="mt-4">Browse All Fonts</Button>
+            <p className="text-2xl font-bold text-foreground mb-4">No Fonts Found</p>
+            <p className="text-muted-foreground mb-6">
+              {selectedCategory === 'all' 
+                ? 'The database is empty. Please populate it with fonts from Google Fonts.'
+                : `No fonts found in the ${selectedCategory} category.`}
+            </p>
+            <Link to={selectedCategory === 'all' ? '/populate' : '/'}>
+              <Button size="lg" className="bg-primary text-primary-foreground">
+                {selectedCategory === 'all' ? 'Go to Populate Page' : 'Browse All Fonts'}
+              </Button>
             </Link>
           </div>
         )}

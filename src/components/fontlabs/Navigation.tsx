@@ -78,6 +78,14 @@ export default function Navigation() {
             >
               Community
             </Link>
+            <Link 
+              to="/about" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive('/about') ? 'text-primary' : 'text-foreground'
+              }`}
+            >
+              About
+            </Link>
           </nav>
           
           {/* Desktop Actions */}
@@ -161,6 +169,20 @@ export default function Navigation() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Community
+              </Link>
+              <Link 
+                to="/about" 
+                className="text-sm font-medium py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                to="/contact" 
+                className="text-sm font-medium py-2 hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
               <div className="flex gap-3 pt-3">
                 <Link to="/favorites" className="flex-1">

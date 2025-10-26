@@ -16,6 +16,10 @@ import Profile from "./pages/Profile";
 import FontDetail from "./pages/FontDetail";
 import Auth from "./pages/Auth";
 import PopulateFonts from "./pages/PopulateFonts";
+import Favorites from "./pages/Favorites";
+import Community from "./pages/Community";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +44,10 @@ const App = () => (
             <Route path="/font/:id" element={<FontDetail />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/populate" element={<PopulateFonts />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<div className="p-8 text-center">Page not found</div>} />
           </Routes>
         </BrowserRouter>

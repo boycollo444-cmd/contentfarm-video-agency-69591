@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface FontCardProps {
   id: string;
@@ -14,6 +17,8 @@ interface FontCardProps {
   previewText?: string;
   designer?: string;
   isNew?: boolean;
+  isFavorite?: boolean;
+  onToggleFavorite?: (fontId: string) => void;
 }
 
 export default function FontCard({
@@ -26,7 +31,49 @@ export default function FontCard({
   previewText = 'The quick brown fox',
   designer,
   isNew = false,
+  isFavorite = false,
+  onToggleFavorite,
 }: FontCardProps) {
+  const { toast } = useToast();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
+
+  const handleSave = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!user) {
+      toast({
+        title: 'Authentication required',
+        description: 'Please sign in to save favorites',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (onToggleFavorite) {
+      onToggleFavorite(id);
+    }
+  };
+
+  const handleDownload = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Increment download count
+    await supabase
+      .from('fonts')
+      .update({ downloads: downloads + 1 })
+      .eq('id', id);
+    
+    toast({
+      title: 'Download Started',
+      description: `${name} is being downloaded`,
+    });
+  };
   return (
     <Card className="group relative overflow-hidden hover:shadow-lg transition-all duration-300 border border-border bg-card">
       <Link to={`/font/${id}`} className="block p-6">
@@ -92,11 +139,11 @@ export default function FontCard({
       {/* Action Buttons - Show on Hover */}
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="flex gap-2">
-          <Button size="sm" variant="outline" className="flex-1">
-            <Heart className="h-4 w-4 mr-1" />
+          <Button size="sm" variant="outline" className="flex-1" onClick={handleSave}>
+            <Heart className={`h-4 w-4 mr-1 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
             Save
           </Button>
-          <Button size="sm" className="flex-1 bg-primary text-primary-foreground">
+          <Button size="sm" className="flex-1 bg-primary text-primary-foreground" onClick={handleDownload}>
             <Download className="h-4 w-4 mr-1" />
             {isPremium ? 'Premium' : 'Download'}
           </Button>

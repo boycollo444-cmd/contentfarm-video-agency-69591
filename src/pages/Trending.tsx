@@ -3,6 +3,8 @@ import { supabase } from '@/integrations/supabase/client';
 import FontCard from '@/components/fontlabs/FontCard';
 import { Loader2, TrendingUp } from 'lucide-react';
 import { loadGoogleFont } from '@/lib/googleFonts';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 export default function Trending() {
   const [fonts, setFonts] = useState<any[]>([]);
@@ -46,6 +48,18 @@ export default function Trending() {
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : fonts.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-2xl font-bold text-foreground mb-4">No Fonts Found</p>
+            <p className="text-muted-foreground mb-6">
+              The database is empty. Please populate it with fonts from Google Fonts.
+            </p>
+            <Link to="/populate">
+              <Button size="lg" className="bg-primary text-primary-foreground">
+                Go to Populate Page
+              </Button>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
