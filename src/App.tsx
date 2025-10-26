@@ -15,6 +15,7 @@ import AITools from "./pages/AITools";
 import Profile from "./pages/Profile";
 import FontDetail from "./pages/FontDetail";
 import Auth from "./pages/Auth";
+import PopulateFonts from "./pages/PopulateFonts";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/font/:id" element={<FontDetail />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/populate" element={<PopulateFonts />} />
             <Route path="*" element={<div className="p-8 text-center">Page not found</div>} />
           </Routes>
         </BrowserRouter>

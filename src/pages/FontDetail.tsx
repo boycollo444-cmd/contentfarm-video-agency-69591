@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Crown, Download, Heart, Star, ArrowLeft, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { loadGoogleFont } from '@/lib/googleFonts';
 
 export default function FontDetail() {
   const { id } = useParams();
@@ -33,6 +34,10 @@ export default function FontDetail() {
     
     if (!error && data) {
       setFont(data);
+      // Load the Google Font dynamically
+      if (data.google_font_family || data.name) {
+        loadGoogleFont(data.google_font_family || data.name);
+      }
     }
     setLoading(false);
   };
@@ -167,7 +172,10 @@ export default function FontDetail() {
           </div>
           <div
             className="bg-muted/30 rounded-lg p-8 min-h-[200px] flex items-center justify-center text-center break-words"
-            style={{ fontSize: `${fontSize[0]}px`, fontFamily: font.name }}
+            style={{ 
+              fontSize: `${fontSize[0]}px`, 
+              fontFamily: `'${font.google_font_family || font.name}', sans-serif` 
+            }}
           >
             {previewText}
           </div>
